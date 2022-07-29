@@ -35,7 +35,8 @@ export class Client extends Person{
 
     @OneToMany(
         () => Transaction,
-        transaction => transaction.client
+        transaction => transaction.client,
+        
     )
     transactions: Transaction[]
 

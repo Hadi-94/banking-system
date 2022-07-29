@@ -12,7 +12,7 @@ export class Banker extends Person{
     employee_number: string
 
     @ManyToMany(
-        () => Client,
+        () => Client
     )
 
     @JoinTable({
