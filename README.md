@@ -1,4 +1,4 @@
-#Banking System
+##Banking System
 This mini project is implementing a REST API using:
 
 1. `PostgreSQL` for holding (Clients, Bankers, Transactions) Information.
