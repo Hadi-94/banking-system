@@ -1,4 +1,4 @@
-import {createConnection} from "typeorm"
+import {createConnection, getConnectionOptions} from "typeorm"
 import express from "express"
 import {Client} from "./entities/Client"
 import {Banker} from "./entities/Banker"
@@ -10,23 +10,15 @@ import {connectBankerToClientRouter} from "./routes/connect_banker_to_client"
 import {deleteClientRouter} from "./routes/delete_client"
 import {fetchClientsRouter} from "./routes/fetch_clients"
 
-
 const app = express()
 
 const main = async () => {
     try {
-        await createConnection({
-        
-            type: "postgres",
-            host: "localhost",
-            port: 5432,
-            username: "postgres",
-            password: "2081994",
-            database: "typeorm",
-            entities: [Client, Banker, Transaction],
-            synchronize: true 
-    
-        })
+        const connectionOptions = await getConnectionOptions();
+        Object.assign(connectionOptions, { entities: [Client, Banker, Transaction] });
+
+        await createConnection(connectionOptions)
+
         console.log("Connected to Postgres")
 
         app.use(express.json())
@@ -46,6 +38,8 @@ const main = async () => {
         console.error(error)
         throw new Error("Unable to connect to Postgres DB")   
     }
-} 
+}
+
+
 
 main()
