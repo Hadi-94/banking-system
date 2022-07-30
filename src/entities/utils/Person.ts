@@ -1,27 +1,30 @@
-import {Entity, BaseEntity, Column, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm"
+import {
+  Entity,
+  BaseEntity,
+  Column,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
-export class Person extends BaseEntity{
-    
-    @PrimaryGeneratedColumn()
-    id: number
+export class Person extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    first_name: string;
-    
-    @Column()
-    last_name: string;
+  @Column()
+  first_name: string;
 
-    @Column({
-        unique: true
-    })
-    email: string;
+  @Column()
+  last_name: string;
 
-    @Column({
-        unique: true, 
-        length: 10
-    })
-    card_number: string;
+  @Column({
+    unique: true,
+  })
+  email: string;
 
-
+  @Column({
+    unique: true,
+    length: 10,
+  })
+  card_number: string;
 }
