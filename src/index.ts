@@ -3,12 +3,20 @@ import express from "express";
 import { Client } from "./entities/Client";
 import { Banker } from "./entities/Banker";
 import { Transaction } from "./entities/Transaction";
-import { createClientRouter } from "./routes/create_client";
-import { createBankerRouter } from "./routes/create_banker";
-import { createTransactionRouter } from "./routes/create_transaction";
-import { connectBankerToClientRouter } from "./routes/connect_banker_to_client";
-import { deleteClientRouter } from "./routes/delete_client";
-import { fetchClientsRouter } from "./routes/fetch_clients";
+import {
+  createClientRouter,
+  deleteClientRouter,
+  fetchClientsRouter,
+} from "./routes/users_route";
+import {
+  createBankerRouter,
+  deleteBankerRouter,
+  connectBankerToClientRouter,
+} from "./routes/bankers_route";
+import {
+  createTransactionRouter,
+  fetchTransactionsRouter,
+} from "./routes/transactions_route";
 
 const app = express();
 
@@ -29,6 +37,8 @@ const main = async () => {
     app.use(createTransactionRouter);
     app.use(connectBankerToClientRouter);
     app.use(deleteClientRouter);
+    app.use(deleteBankerRouter);
+    app.use(fetchTransactionsRouter);
     app.use(fetchClientsRouter);
 
     app.listen(8080, () => {
