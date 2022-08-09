@@ -3,9 +3,9 @@ import { Client } from "../entities/Client";
 import { Transaction, TransactionTypes } from "../entities/Transaction";
 import { createQueryBuilder } from "typeorm";
 
-const router = express.Router();
+export const transactionRouter = express.Router();
 
-const createTransactionRouter = router.post(
+transactionRouter.post(
   "/api/client/:clientId/transaction",
   async (req, res) => {
     const { clientId } = req.params;
@@ -42,7 +42,7 @@ const createTransactionRouter = router.post(
   }
 );
 
-const fetchTransactionsRouter = router.get(
+transactionRouter.get(
   "/api/client/:clientId/transaction/:transactionId",
   async (req, res) => {
     const { transactionId } = req.params;
@@ -62,8 +62,3 @@ const fetchTransactionsRouter = router.get(
     return res.json(selectedTransaction);
   }
 );
-
-export {
-  createTransactionRouter as createTransactionRouter,
-  fetchTransactionsRouter as fetchTransactionsRouter,
-};

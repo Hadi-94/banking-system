@@ -2,9 +2,9 @@ import express from "express";
 import { Client } from "../entities/Client";
 import { Banker } from "../entities/Banker";
 
-const router = express.Router();
+export const bankersRouter = express.Router();
 
-const createBankerRouter = router.post("/api/banker", async (req, res) => {
+bankersRouter.post("/api/banker", async (req, res) => {
   const { firstName, lastName, email, cardNumber, employeeNumber } = req.body;
 
   const banker = Banker.create({
@@ -19,19 +19,16 @@ const createBankerRouter = router.post("/api/banker", async (req, res) => {
   return res.json(banker);
 });
 
-const deleteBankerRouter = router.delete(
-  "/api/banker/:bankerId",
-  async (req, res) => {
-    const { bankerId } = req.params;
-    const banker = await Banker.delete(Number(bankerId));
+bankersRouter.delete("/api/banker/:bankerId", async (req, res) => {
+  const { bankerId } = req.params;
+  const banker = await Banker.delete(Number(bankerId));
 
-    return res.json({
-      msg: "Banker is removed successfully",
-    });
-  }
-);
+  return res.json({
+    msg: "Banker is removed successfully",
+  });
+});
 
-const connectBankerToClientRouter = router.put(
+bankersRouter.put(
   "/api/banker/:bankerId/client/:clientId",
   async (req, res) => {
     const { bankerId, clientId } = req.params;
@@ -53,9 +50,3 @@ const connectBankerToClientRouter = router.put(
     });
   }
 );
-
-export {
-  createBankerRouter as createBankerRouter,
-  deleteBankerRouter as deleteBankerRouter,
-  connectBankerToClientRouter as connectBankerToClientRouter,
-};
